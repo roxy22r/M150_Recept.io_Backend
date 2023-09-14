@@ -1,25 +1,48 @@
+using MongoDB.Driver;
+using RecipeRepositories;
+using RecipeRepositoriesMngoDb;
+using RecipeService;
+using RezeptIO.API.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
+var mongoDbSettings = new MongoDBSettings();
+var configDir = Environment.GetEnvironmentVariable("CONFIG_DIR");
+
+builder.Configuration.AddJsonFile(Environment.CurrentDirectory + configDir);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "_myAllowSpecificOrigins",
+                      policy =>
+                      {
+                          policy.AllowAnyOrigin();
+                          policy.AllowAnyMethod();
+                          policy.AllowAnyHeader();
+                      });
+});
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddMvcCore();
 
-var app = builder.Build();
+builder.Services.AddScoped<IRecipeService, RecipeService.RecipeService>();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+builder.Configuration.GetSection("Persistence").Bind(mongoDbSettings);
+
+
+if (mongoDbSettings.Type == "mongodb")
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    builder.Services.AddSingleton<IRecipeRepository, MngoRecipeRepository>();
+    builder.Services.AddSingleton<IMongoDatabase>(x => new MongoClient(mongoDbSettings.Connectionstring).GetDatabase(mongoDbSettings.Databasename));
 }
 
-app.UseHttpsRedirection();
+var app = builder.Build();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors("_myAllowSpecificOrigins");
 
 app.Run();

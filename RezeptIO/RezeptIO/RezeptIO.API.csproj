@@ -11,7 +11,15 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.10" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.4" />
+    <PackageReference Include="MongoDB.Driver" Version="2.21.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RecipeRepositoriesMngoDb\RecipeRepositoriesMngoDb.csproj" />
+    <ProjectReference Include="..\RecipeRepository\RecipeRepositories.csproj" />
+    <ProjectReference Include="..\RecipeService\RecipeService.csproj" />
   </ItemGroup>
 
 </Project>
