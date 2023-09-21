@@ -20,10 +20,16 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Recipe"
+              $ref: "#/components/schemas/RecipeRequest"
       responses:
-        default:
-          description: Default error sample response
+        "200":
+          desciption: Recipe created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RecipeResponse"
+        "500": 
+          desciption: An unexpected server error occurred
   /delete/{id}:
     summary: Delete a Recipe
     description: Delete a Recipe
@@ -40,36 +46,41 @@ paths:
       responses:
         "200":
           description: Recipe delete successfully
-        "400":
-          description: Invalid formatted Object
-        "403":
-          description: Permission to delete Recipe denied
-        "406":
-          description: Must not change the MIME type of the resource
+        "404":
+          description: Could not find and recipe with this id
         "500":
           description: An unexpected server error occurred
 
-  /update:
+  /update{id}:
     summary: Update a Recipe
     description: Update a Recipe
     post:
+      summary: Update Recipe
+      descripion: Updates the Recipe with the corresponding id
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "Id of source-template"
+          required: true
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Recipe"
+              $ref: "#/components/schemas/RecipeRequest"
       responses:
         "200":
-          description: Recipe updated successfully
-        "400":
-          description: Invalid formatted Object
-        "403":
-          description: Permission to update Recipe denied
-        "406":
-          description: Must not change the MIME type of the resource
+          desciption: Recipe created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RecipeResponse"
+        "404":
+          description: Could not find any recipe with this id
         "500":
           description: An unexpected server error occurred
-  /Recipe/{id}:
+  /Recipes/{id}:
     summary: Get Recipe
     description: Get Recipe
     get:
@@ -88,15 +99,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Recipe"
-
-        "403":
-          description: Permission to get a Recipe denied
-        "406":
-          description: Must not change the MIME type of the resource
+                $ref: "#/components/schemas/RecipeResponse"
+        "404":
+          desciption: Could not find any recipe with this id
         "500":
           description: An unexpected server error occurred
-  /Recipe:
+  /Recipes:
     summary: Get All Recipe
     description: Get All Recipe
     get:
@@ -110,17 +118,12 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Recipe"
-
-        "403":
-          description: Permission to get a Recipe denied
-        "406":
-          description: Must not change the MIME type of the resource
+                  $ref: "#/components/schemas/RecipeResponse"
         "500":
           description: An unexpected server error occurred
 components:
   schemas:
-    Recipe:
+    RecipeResponse:
       type: object
       properties:
         id:
@@ -130,24 +133,23 @@ components:
         title:
           type: string
           example: 'Pizza'
-        author:
-          type: string
-          example: 'emma'
         ingredients:
           type: array
           items: 
             $ref: "#/components/schemas/Ingredients"
-          example: 'Pizza'  
-        timestamp:
+    RecipeRequest:
+      type: object
+      properties:
+        title:
           type: string
-          format: date-time
+          example: 'Pizza'
+        ingredients:
+          type: array
+          items: 
+            $ref: "#/components/schemas/Ingredients"
     Ingredients:
       type: object
       properties:
-        id:
-          type: string
-          format: UUID4
-          example: e3c2081e-8efa-4a30-8a2a-a9f44256180f
         name:
           type: string
           example: 'Pizza'
