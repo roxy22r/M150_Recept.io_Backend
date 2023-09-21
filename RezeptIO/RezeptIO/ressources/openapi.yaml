@@ -1,0 +1,160 @@
+openapi: 3.0.3
+info:
+  title: Recept.io 1.0
+  description: Something crazx
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+paths:
+  /create:
+    summary: 'Create a  recipe '
+    description: 'Create a  recipe '
+    post:
+      summary: 'Create a  recipe '
+      description: 'Create a  recipe '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RecipeRequest"
+      responses:
+        "200":
+          desciption: Recipe created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RecipeResponse"
+        "500": 
+          desciption: An unexpected server error occurred
+  /delete/{id}:
+    summary: Delete a Recipe
+    description: Delete a Recipe
+    delete:
+      summary: Delete Recipe
+      description: Delete Recipe
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "Id of source-template"
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Recipe delete successfully
+        "404":
+          description: Could not find and recipe with this id
+        "500":
+          description: An unexpected server error occurred
+
+  /update{id}:
+    summary: Update a Recipe
+    description: Update a Recipe
+    post:
+      summary: Update Recipe
+      descripion: Updates the Recipe with the corresponding id
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "Id of source-template"
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RecipeRequest"
+      responses:
+        "200":
+          desciption: Recipe created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RecipeResponse"
+        "404":
+          description: Could not find any recipe with this id
+        "500":
+          description: An unexpected server error occurred
+  /Recipes/{id}:
+    summary: Get Recipe
+    description: Get Recipe
+    get:
+      summary: Get  Recipe
+      description: Get  Recipe
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "Id of source-template"
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Recipe successfully returned
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RecipeResponse"
+        "404":
+          desciption: Could not find any recipe with this id
+        "500":
+          description: An unexpected server error occurred
+  /Recipes:
+    summary: Get All Recipe
+    description: Get All Recipe
+    get:
+      summary: Get All Recipe
+      description: Get All Recipe
+      responses: 
+        "200":
+          description: Recipe successfully returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RecipeResponse"
+        "500":
+          description: An unexpected server error occurred
+components:
+  schemas:
+    RecipeResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: UUID4
+          example: e3c2081e-8efa-4a30-8a2a-a9f44256180f
+        title:
+          type: string
+          example: 'Pizza'
+        ingredients:
+          type: array
+          items: 
+            $ref: "#/components/schemas/Ingredients"
+    RecipeRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          example: 'Pizza'
+        ingredients:
+          type: array
+          items: 
+            $ref: "#/components/schemas/Ingredients"
+    Ingredients:
+      type: object
+      properties:
+        name:
+          type: string
+          example: 'Pizza'
+        quantity:
+          type: string
+          example: '2.2 löffel'
+ 
+    
