@@ -4,6 +4,7 @@ using RecipeService;
 using ServiceModel = RecipeService.Models;
 using RezeptIO.API.Controllers.Models;
 using RecipeService.Models;
+using Recipe = RezeptIO.API.Controllers.Models.Recipe;
 
 namespace RezeptIO.API.Controllers
 {
@@ -15,6 +16,12 @@ namespace RezeptIO.API.Controllers
             RecipeService = recipeService;
         }
 
+
+        [HttpPost("update")]
+        public ActionResult UpdateRecipe(Recipe recipe)
+        {
+            return StatusCode(200);
+        }
         public IRecipeService RecipeService { get; set; }
 
     }

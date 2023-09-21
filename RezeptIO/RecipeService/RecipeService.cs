@@ -27,12 +27,12 @@ namespace RecipeService
             throw new NotImplementedException();
         }
 
-        public (RecipeServiceResponse, IEnumerable<Recipe>) GetAllParkingSpaces()
+        public (RecipeServiceResponse, IEnumerable<Recipe>) GetAllRecipe()
         {
             throw new NotImplementedException();
         }
 
-        public (RecipeServiceResponse, Recipe) GetParkingSpace(string id)
+        public (RecipeServiceResponse, Recipe) GeteRecipe(string id)
         {
             throw new NotImplementedException();
         }

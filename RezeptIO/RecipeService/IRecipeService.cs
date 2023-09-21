@@ -12,7 +12,7 @@ namespace RecipeService
         public Task<(RecipeServiceResponse, Recipe)> CreateRecipe(Recipe recipe);
         public Task<(RecipeServiceResponse, Recipe)> UpdateRecipe(Recipe recipe);
         public Task<RecipeServiceResponse> DeleteRecipe(string id);
-        public (RecipeServiceResponse, Recipe) GetParkingSpace(string id);
-        public (RecipeServiceResponse, IEnumerable<Recipe>) GetAllParkingSpaces();
+        public (RecipeServiceResponse, Recipe) GeteRecipe(string id);
+        public (RecipeServiceResponse, IEnumerable<Recipe>) GetAllRecipe();
     }
 }
