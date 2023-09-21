@@ -11,11 +11,11 @@ info:
   version: 1.0.11
 paths:
   /create:
-    summary: Create a  Recipe 
-    description: 'Create a Recipe
+    summary: 'Create a  recipe '
+    description: 'Create a  recipe '
     post:
-      summary: Create a  recipe 
-      description: Create a  Recipe 
+      summary: 'Create a  recipe '
+      description: 'Create a  recipe '
       requestBody:
         content:
           application/json:
