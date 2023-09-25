@@ -19,27 +19,41 @@ namespace RecipeService
 
         public Task<(RecipeServiceResponse, Recipe)> CreateRecipe(Recipe recipe)
         {
-            throw new NotImplementedException();
+
         }
 
-        public Task<RecipeServiceResponse> DeleteRecipe(string id)
+        public RecipeServiceResponse DeleteRecipe(string id)
         {
-            throw new NotImplementedException();
+
         }
 
-        public (RecipeServiceResponse, IEnumerable<Recipe>) GetAllParkingSpaces()
+        public async (RecipeServiceResponse, IEnumerable<Recipe>) GetAllRecipes()
         {
-            throw new NotImplementedException();
+
         }
 
-        public (RecipeServiceResponse, Recipe) GetParkingSpace(string id)
+        public async (RecipeServiceResponse, Recipe) GetRecipe(string id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return (RecipeServiceResponse.Success, await RecipeRepository.GetRecipe(id));
+            }
+            catch {
+                return (RecipeServiceResponse.Failure,null);
+            }
+            
         }
 
-        public Task<(RecipeServiceResponse, Recipe)> UpdateRecipe(Recipe recipe)
+        public async Task<(RecipeServiceResponse, Recipe)> UpdateRecipeAsync(Recipe recipe)
         {
-            throw new NotImplementedException();
+            try
+            {
+               Recipe updatedRecipe= await RecipeRepository.UpdateRecipe(recipe);
+                return (RecipeServiceResponse.Success,updatedRecipe );
+            }
+            catch {
+                return RecipeServiceResponse.Failure;
+            }
         }
     }
 }

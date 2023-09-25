@@ -5,11 +5,13 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RezeptIO.API", "RezeptIO\RezeptIO.API.csproj", "{67E55CEB-1BB9-41F5-9D57-1572556509C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeService", "RecipeService\RecipeService.csproj", "{BB648DC1-2208-43D2-835C-5A16B7CBF181}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeService", "RecipeService\RecipeService.csproj", "{BB648DC1-2208-43D2-835C-5A16B7CBF181}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeRepositories", "RecipeRepository\RecipeRepositories.csproj", "{E308BCDC-4D32-426F-8055-8D7B04CFF874}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeRepositories", "RecipeRepository\RecipeRepositories.csproj", "{E308BCDC-4D32-426F-8055-8D7B04CFF874}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeRepositoriesMngoDb", "RecipeRepositoriesMngoDb\RecipeRepositoriesMngoDb.csproj", "{ACAA8411-77D4-4DF0-B654-9299FFC854DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeRepositoriesMngoDb", "RecipeRepositoriesMngoDb\RecipeRepositoriesMngoDb.csproj", "{ACAA8411-77D4-4DF0-B654-9299FFC854DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeTest", "RecipeTest\RecipeTest.csproj", "{63392314-F9E6-466C-B99E-59508AE303CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{ACAA8411-77D4-4DF0-B654-9299FFC854DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACAA8411-77D4-4DF0-B654-9299FFC854DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACAA8411-77D4-4DF0-B654-9299FFC854DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63392314-F9E6-466C-B99E-59508AE303CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63392314-F9E6-466C-B99E-59508AE303CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63392314-F9E6-466C-B99E-59508AE303CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63392314-F9E6-466C-B99E-59508AE303CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
