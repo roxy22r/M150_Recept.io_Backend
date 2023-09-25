@@ -11,11 +11,11 @@ namespace RecipeRepositoriesMngoDb
 {
     public class MngoRecipeRepository : IRecipeRepository
     {
-        private readonly IMongoCollection<Recipe> parkingSpaces;
+        private readonly IMongoCollection<Recipe> recipes;
 
         public MngoRecipeRepository(IMongoDatabase mongoDatabase)
         {
-            parkingSpaces = mongoDatabase.GetCollection<Recipe>("recipe");
+            recipes = mongoDatabase.GetCollection<Recipe>("recipe");
         }
 
         public Task<Recipe> CreateRecipe(Recipe recipe)
@@ -28,19 +28,20 @@ namespace RecipeRepositoriesMngoDb
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Recipe>> GetAllParkingSpaces()
+        public Task<IEnumerable<Recipe>> GetAllRecipes()
         {
             throw new NotImplementedException();
         }
 
-        public Task<Recipe> GetParkingSpace(string id)
+        public Task<Recipe> GetRecipe(string id)
         {
             throw new NotImplementedException();
         }
 
         public Task<Recipe> UpdateRecipe(Recipe recipe)
         {
-            throw new NotImplementedException();
+           return recipes.UpdateOneAsync(recipe);
+
         }
     }
 }

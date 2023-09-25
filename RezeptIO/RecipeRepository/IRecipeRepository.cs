@@ -12,7 +12,7 @@ namespace RecipeRepositories
         public Task<Recipe> CreateRecipe(Recipe recipe);
         public Task<Recipe> UpdateRecipe(Recipe recipe);
         public Task<bool> DeleteRecipe(string id);
-        public Task<Recipe> GetParkingSpace(string id);
-        public Task<IEnumerable<Recipe>> GetAllParkingSpaces();
+        public Task<Recipe> GetRecipe(string id);
+        public Task<IEnumerable<Recipe>> GetAllRecipes();
     }
 }
