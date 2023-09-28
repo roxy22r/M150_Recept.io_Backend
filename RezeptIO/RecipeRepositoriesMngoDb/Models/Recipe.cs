@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ThirdParty.Json.LitJson;
 
 namespace RecipeRepositoriesMngoDb.Models
 {
@@ -15,7 +16,8 @@ namespace RecipeRepositoriesMngoDb.Models
         [BsonElement("ttl")]
         public string Title { get; set; } = string.Empty;
 
-        [BsonElement("dscr")]
-        public string Description { get; set; } = string.Empty;
+        [BsonElement("ingr")]
+        public List<Ingredient> Ingredients { get; set; } = new();
+
     }
 }
