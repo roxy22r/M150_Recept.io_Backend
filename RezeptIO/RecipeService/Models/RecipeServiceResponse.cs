@@ -8,5 +8,7 @@ namespace RecipeService.Models
 {
     public enum RecipeServiceResponse
     {
+        Success,
+        Failure,
     }
 }
