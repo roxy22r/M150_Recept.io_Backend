@@ -44,7 +44,8 @@ namespace RecipeRepositoriesMngoDb
 
         public Task<Recipe> UpdateRecipe(Recipe recipe)
         {
-           return recipes.UpdateOneAsync(recipe);
+            throw new NotImplementedException();
+
 
         }
     }

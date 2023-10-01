@@ -30,8 +30,20 @@ namespace RezeptIO.API.Controllers
 
         public async Task<IActionResult> GetAllRecipes()
         {
+            try { 
             var result = RecipeService.GetAllRecipes();
-            return StatusCode(StatusCodes.Status200OK,result);
+                switch (result.Item1)
+                        {
+                    case RecipeServiceResponse.Success:
+                        return StatusCode(StatusCodes.Status200OK, result);
+                    case RecipeServiceResponse.Failure:
+                        return StatusCode(StatusCodes.Status404NotFound);
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
 
         public Task<IActionResult> GetRecipe(string id)

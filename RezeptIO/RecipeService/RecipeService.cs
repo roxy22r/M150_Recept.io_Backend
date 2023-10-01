@@ -29,8 +29,14 @@ namespace RecipeService
 
         public (RecipeServiceResponse, IEnumerable<Recipe>) GetAllRecipes()
         {
-            var result = RecipeExtention.toRecipe(RecipeRepository.GetAllRecipes());
-            return  new (RecipeServiceResponse.Success,result);
+            try
+            {
+                var result = RecipeExtention.toRecipe(RecipeRepository.GetAllRecipes());
+                return new(RecipeServiceResponse.Success, result);
+            }
+            catch { 
+                return new(RecipeServiceResponse.Failure, null);
+            }
         }
 
         public (RecipeServiceResponse, Recipe) GetRecipe(string id)
