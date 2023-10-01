@@ -13,7 +13,7 @@ namespace RecipeService
 {
     public static class RecipeExtention
     {
-        public static Svc.Recipe Recipe(this Rep.Recipe recipe)
+        public static Svc.Recipe toRecipe(this Rep.Recipe recipe)
         {
             return new Svc.Recipe
             {
@@ -21,6 +21,11 @@ namespace RecipeService
                 Title = recipe.Title,
                 Ingredients = IngredientsExtention.ToIngredient(recipe.Ingredients)
             };
+        }
+
+        public static IEnumerable<Svc.Recipe> toRecipe(Task<IEnumerable<Rep.Recipe>> recipes)
+        {
+            return recipes.Result.Select(recipe => toRecipe(recipe)).ToList();
         }
     }
 }

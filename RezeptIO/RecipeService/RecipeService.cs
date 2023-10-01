@@ -29,7 +29,8 @@ namespace RecipeService
 
         public (RecipeServiceResponse, IEnumerable<Recipe>) GetAllRecipes()
         {
-            throw new NotImplementedException();
+            var result = RecipeExtention.toRecipe(RecipeRepository.GetAllRecipes());
+            return  new (RecipeServiceResponse.Success,result);
         }
 
         public (RecipeServiceResponse, Recipe) GetRecipe(string id)

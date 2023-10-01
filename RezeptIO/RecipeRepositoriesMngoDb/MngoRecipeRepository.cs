@@ -1,11 +1,14 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using RecipeRepositories;
 using RecipeRepositories.Models;
+using RecipeRepositoriesMngoDb.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Recipe = RecipeRepositoriesMngoDb.Models.Recipe;
 
 namespace RecipeRepositoriesMngoDb
 {
@@ -28,9 +31,10 @@ namespace RecipeRepositoriesMngoDb
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Recipe>> GetAllRecipes()
+        public async Task<IEnumerable<Recipe>> GetAllRecipes()
         {
-            throw new NotImplementedException();
+            var all = await (recipes.Find(_ => true).ToListAsync());
+            return all;
         }
 
         public Task<Recipe> GetRecipe(string id)
