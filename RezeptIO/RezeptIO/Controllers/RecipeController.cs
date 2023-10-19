@@ -73,12 +73,12 @@ namespace RezeptIO.API.Controllers
                 Ingredients = ToIngredient(recipe.Ingredients),
             };
         }
-        public static List<Svc.Ingredient> ToIngredient(List<Api.Ingredient> ingredient)
+        public  List<Svc.Ingredient> ToIngredient(List<Api.Ingredient> ingredient)
         {
             return ingredient.Select(ingredientItem => { return ToIngredient(ingredientItem); }).ToList();
 
         }
-        public static Svc.Ingredient ToIngredient(this Api.Ingredient ingredient)
+        public  Svc.Ingredient ToIngredient(this Api.Ingredient ingredient)
         {
             return new Svc.Ingredient
             {
@@ -96,12 +96,12 @@ namespace RezeptIO.API.Controllers
                 Ingredients = ToIngredient(recipe.Ingredients),
             };
         }
-        public static List<Api.Ingredient> ToIngredient(List<Svc.Ingredient> ingredient)
+        public  List<Api.Ingredient> ToIngredient(List<Svc.Ingredient> ingredient)
         {
             return ingredient.Select(ingredientItem => { return ToIngredient(ingredientItem); }).ToList();
 
         }
-        public static Api.Ingredient ToIngredient(this Svc.Ingredient ingredient)
+        public  Api.Ingredient ToIngredient(this Svc.Ingredient ingredient)
         {
             return new Api.Ingredient
             {
