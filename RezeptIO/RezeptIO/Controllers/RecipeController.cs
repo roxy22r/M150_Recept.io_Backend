@@ -60,7 +60,9 @@ namespace RezeptIO.API.Controllers
         {
             Svc.Recipe mapped=toRecipe(res);
            // Svc.Recipe updatedRecipe=RecipeService.UpdateRecipe(mapped);
-            return Ok(updatedRecipe);
+           //
+           //return Ok(updatedRecipe);
+           return Ok();
         }
 
         public  Svc.Recipe toRecipe(Api.Recipe recipe)
