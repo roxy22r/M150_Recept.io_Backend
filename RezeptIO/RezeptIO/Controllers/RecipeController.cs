@@ -8,7 +8,7 @@ using RecipeService.Models;
 namespace RezeptIO.API.Controllers
 {
     [Route("recipe/")]
-    public class RecipeController : Controller
+    public class RecipeController : Controller,IRecipe
     {
         public RecipeController(IRecipeService recipeService)
         {
@@ -17,5 +17,29 @@ namespace RezeptIO.API.Controllers
 
         public IRecipeService RecipeService { get; set; }
 
+        public Task<(RecipeServiceResponse, IRecipe)> CreateRecipe(IRecipe recipe)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<RecipeServiceResponse> DeleteRecipe(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public (RecipeServiceResponse, IEnumerable<IRecipe>) GetAllRecipes()
+        {
+            throw new NotImplementedException();
+        }
+
+        public (RecipeServiceResponse, IRecipe) GetRecipe(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<(RecipeServiceResponse, IRecipe)> UpdateRecipe(IRecipe recipe)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
