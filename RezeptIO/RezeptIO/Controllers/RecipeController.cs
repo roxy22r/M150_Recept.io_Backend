@@ -1,17 +1,14 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using RecipeService;
-using ServiceModel = RecipeService.Models;
-using RezeptIO.API.Controllers.Models;
-using RecipeService.Models;
-using Recipe = RezeptIO.API.Controllers.Models.Recipe;
-using Svc=RecipeService.Models;
+using Svc = RecipeService.Models;
 using Api = RezeptIO.API.Controllers.Models;
+using RezeptIO.API.Controllers.Models;
 
 namespace RezeptIO.API.Controllers
 {
     [Route("recipe/")]
-    public class RecipeController : Controller, IRecipe
+    public class RecipeController : Controller
     {
         public RecipeController(IRecipeService recipeService)
         {
@@ -20,12 +17,16 @@ namespace RezeptIO.API.Controllers
 
         public IRecipeService RecipeService { get; set; }
 
-        public IActionResult CreateRecipe(Api.Recipe recipe)
+        [HttpPost]
+        public IActionResult CreateRecipe([FromBody] Recipe recipe)
         {
-           throw new NotImplementedException();
+            var (_, newRecipe) = RecipeService.CreateRecipe(recipe.toRecipe());
+            return Ok(newRecipe);
         }
 
-        public IActionResult DeleteRecipe(string id)
+        [HttpDelete]
+        [Route("/{id}")]
+        public IActionResult DeleteRecipe([FromRoute(Name = "id")] string id)
         {
             try
             {
@@ -37,77 +38,34 @@ namespace RezeptIO.API.Controllers
                 return StatusCode(500);
             }
         }
-
+        [HttpGet]
         public IActionResult GetAllRecipes()
         {
             try
             {
-                return Ok(RecipeService.GetAllRecipes());
+                var (_, Recipes) = RecipeService.GetAllRecipes();
+                return Ok(Recipes);
             }
             catch {
                 return StatusCode(500);
             }
         }
 
-        public IActionResult GetRecipe(string id)
+        [HttpGet]
+        [Route("/{id}")]
+        public IActionResult GetRecipe([FromRoute(Name = "id")] string id)
         {
             Svc.Recipe recipe= RecipeService.GetRecipe(id).Item2;
-            return Ok(toRecipe(recipe));
+            return Ok(recipe.ToRecipe());
 
         }
 
-        public IActionResult UpdateRecipe(Api.Recipe res)
+        [HttpPost]
+        [Route("/{id}")]
+        public IActionResult UpdateRecipe([FromBody] Recipe res)
         {
-            Svc.Recipe mapped=toRecipe(res);
-           // Svc.Recipe updatedRecipe=RecipeService.UpdateRecipe(mapped);
-           //
-           //return Ok(updatedRecipe);
-           return Ok();
-        }
-
-        public  Svc.Recipe toRecipe(Api.Recipe recipe)
-        {
-            return new Svc.Recipe()
-            {
-                Title = recipe.Title,
-                Ingredients = ToIngredient(recipe.Ingredients),
-            };
-        }
-        public  List<Svc.Ingredient> ToIngredient(List<Api.Ingredient> ingredient)
-        {
-            return ingredient.Select(ingredientItem => { return ToIngredient(ingredientItem); }).ToList();
-
-        }
-        public  Svc.Ingredient ToIngredient(this Api.Ingredient ingredient)
-        {
-            return new Svc.Ingredient
-            {
-                Name = ingredient.Name,
-                Quantity = ingredient.Quantity,
-            };
-        }
-
-        //
-        public Api.Recipe toRecipe(Svc.Recipe recipe)
-        {
-            return new Api.Recipe()
-            {
-                Title = recipe.Title,
-                Ingredients = ToIngredient(recipe.Ingredients),
-            };
-        }
-        public  List<Api.Ingredient> ToIngredient(List<Svc.Ingredient> ingredient)
-        {
-            return ingredient.Select(ingredientItem => { return ToIngredient(ingredientItem); }).ToList();
-
-        }
-        public  Api.Ingredient ToIngredient(this Svc.Ingredient ingredient)
-        {
-            return new Api.Ingredient
-            {
-                Name = ingredient.Name,
-                Quantity = ingredient.Quantity,
-            };
+            var (_, newRecipe) = RecipeService.UpdateRecipe(res.toRecipe());
+           return Ok(newRecipe);
         }
     }
 }

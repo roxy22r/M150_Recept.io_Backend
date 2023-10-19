@@ -9,8 +9,8 @@ namespace RecipeService
 {
     public interface IRecipeService
     {
-        public Task<(RecipeServiceResponse, Recipe)> CreateRecipe(Recipe recipe);
-        public Task<(RecipeServiceResponse, Recipe)> UpdateRecipe(Recipe recipe);
+        public (RecipeServiceResponse, Recipe) CreateRecipe(Recipe recipe);
+        public (RecipeServiceResponse, Recipe) UpdateRecipe(Recipe recipe);
         public Task<RecipeServiceResponse> DeleteRecipe(string id);
         public (RecipeServiceResponse, Recipe) GetRecipe(string id);
         public (RecipeServiceResponse, IEnumerable<Recipe>) GetAllRecipes();

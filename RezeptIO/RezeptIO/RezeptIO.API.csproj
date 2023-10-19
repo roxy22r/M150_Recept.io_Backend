@@ -17,8 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RecipeRepositoriesMngoDb\RecipeRepositoriesMngoDb.csproj" />
-    <ProjectReference Include="..\RecipeRepository\RecipeRepositories.csproj" />
     <ProjectReference Include="..\RecipeService\RecipeService.csproj" />
   </ItemGroup>
 

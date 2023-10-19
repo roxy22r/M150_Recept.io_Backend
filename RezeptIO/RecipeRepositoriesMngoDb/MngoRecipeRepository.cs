@@ -27,8 +27,8 @@ namespace RecipeRepositoriesMngoDb
 
         public Task<bool> DeleteRecipe(string id)
         {
-            bool isAcknowledged = recipes.DeleteOne(id).IsAcknowledged;
-            return new Task<bool>(()=> isAcknowledged);
+            var result = recipes.DeleteOne(id);
+            return new Task<bool>(()=>result.IsAcknowledged);
         }
 
         public  Task<IEnumerable<Recipe>> GetAllRecipes()
