@@ -4,11 +4,14 @@ using RecipeService;
 using ServiceModel = RecipeService.Models;
 using RezeptIO.API.Controllers.Models;
 using RecipeService.Models;
+using Recipe = RezeptIO.API.Controllers.Models.Recipe;
+using Svc=RecipeService.Models;
+using Api = RezeptIO.API.Controllers.Models;
 
 namespace RezeptIO.API.Controllers
 {
     [Route("recipe/")]
-    public class RecipeController : Controller,IRecipe
+    public class RecipeController : Controller, IRecipe
     {
         public RecipeController(IRecipeService recipeService)
         {
@@ -17,29 +20,92 @@ namespace RezeptIO.API.Controllers
 
         public IRecipeService RecipeService { get; set; }
 
-        public Task<(RecipeServiceResponse, IRecipe)> CreateRecipe(IRecipe recipe)
+        public IActionResult CreateRecipe(Api.Recipe recipe)
         {
-            throw new NotImplementedException();
+           throw new NotImplementedException();
         }
 
-        public Task<RecipeServiceResponse> DeleteRecipe(string id)
+        public IActionResult DeleteRecipe(string id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                 RecipeService.DeleteRecipe(id);
+                return Ok();
+                
+            }
+            catch {
+                return StatusCode(500);
+            }
         }
 
-        public (RecipeServiceResponse, IEnumerable<IRecipe>) GetAllRecipes()
+        public IActionResult GetAllRecipes()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return Ok(RecipeService.GetAllRecipes());
+            }
+            catch {
+                return StatusCode(500);
+            }
         }
 
-        public (RecipeServiceResponse, IRecipe) GetRecipe(string id)
+        public IActionResult GetRecipe(string id)
         {
-            throw new NotImplementedException();
+            Svc.Recipe recipe= RecipeService.GetRecipe(id).Item2;
+            return Ok(toRecipe(recipe));
+
         }
 
-        public Task<(RecipeServiceResponse, IRecipe)> UpdateRecipe(IRecipe recipe)
+        public IActionResult UpdateRecipe(Api.Recipe res)
         {
-            throw new NotImplementedException();
+            Svc.Recipe mapped=toRecipe(res);
+           // Svc.Recipe updatedRecipe=RecipeService.UpdateRecipe(mapped);
+            return Ok(updatedRecipe);
+        }
+
+        public  Svc.Recipe toRecipe(Api.Recipe recipe)
+        {
+            return new Svc.Recipe()
+            {
+                Title = recipe.Title,
+                Ingredients = ToIngredient(recipe.Ingredients),
+            };
+        }
+        public static List<Svc.Ingredient> ToIngredient(List<Api.Ingredient> ingredient)
+        {
+            return ingredient.Select(ingredientItem => { return ToIngredient(ingredientItem); }).ToList();
+
+        }
+        public static Svc.Ingredient ToIngredient(this Api.Ingredient ingredient)
+        {
+            return new Svc.Ingredient
+            {
+                Name = ingredient.Name,
+                Quantity = ingredient.Quantity,
+            };
+        }
+
+        //
+        public Api.Recipe toRecipe(Svc.Recipe recipe)
+        {
+            return new Api.Recipe()
+            {
+                Title = recipe.Title,
+                Ingredients = ToIngredient(recipe.Ingredients),
+            };
+        }
+        public static List<Api.Ingredient> ToIngredient(List<Svc.Ingredient> ingredient)
+        {
+            return ingredient.Select(ingredientItem => { return ToIngredient(ingredientItem); }).ToList();
+
+        }
+        public static Api.Ingredient ToIngredient(this Svc.Ingredient ingredient)
+        {
+            return new Api.Ingredient
+            {
+                Name = ingredient.Name,
+                Quantity = ingredient.Quantity,
+            };
         }
     }
 }

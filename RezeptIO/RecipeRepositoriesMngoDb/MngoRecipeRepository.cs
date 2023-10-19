@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using RecipeRepositories;
 using RecipeRepositories.Models;
 using System;
@@ -20,28 +21,38 @@ namespace RecipeRepositoriesMngoDb
 
         public Task<Recipe> CreateRecipe(Recipe recipe)
         {
-            throw new NotImplementedException();
+            recipes.InsertOne(recipe);
+            return GetRecipe(recipe.Id);
         }
 
         public Task<bool> DeleteRecipe(string id)
         {
-            throw new NotImplementedException();
+            bool isAcknowledged = recipes.DeleteOne(id).IsAcknowledged;
+            return new Task<bool>(()=> isAcknowledged);
         }
 
-        public Task<IEnumerable<Recipe>> GetAllRecipes()
+        public  Task<IEnumerable<Recipe>> GetAllRecipes()
         {
-            throw new NotImplementedException();
+            var  all =  recipes.Find(Builders<Recipe>.Filter.Empty).ToListAsync();
+            return new Task<IEnumerable<Recipe>>(() => all.Result);
+
         }
 
-        public Task<Recipe> GetRecipe(string id)
+        public  Task<Recipe> GetRecipe(string id)
         {
-            throw new NotImplementedException();
+            var item =recipes.FindAsync(item => item.Id.Equals(id)).Result.First();
+            return new Task<Recipe>(() => item);
+
+
         }
 
         public Task<Recipe> UpdateRecipe(Recipe recipe)
         {
-           return recipes.UpdateOneAsync(recipe);
-
+            var item = recipes.ReplaceOneAsync(GetIdFilter(recipe.Id), recipe);
+            return GetRecipe(recipe.Id);
         }
+        public FilterDefinition<Recipe>GetIdFilter(string id){
+          return Builders<Recipe> .Filter.Eq(item => item.Id,id);
     }
+}
 }

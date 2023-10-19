@@ -1,6 +1,5 @@
 using MongoDB.Driver;
 using RecipeRepositories;
-using RecipeRepositoriesMngoDb;
 using RecipeService;
 using RezeptIO.API.Configuration;
 
