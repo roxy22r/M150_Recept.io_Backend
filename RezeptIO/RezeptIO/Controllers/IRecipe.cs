@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RecipeService.Models;
+using RezeptIO.API.Controllers.Models;
 
 namespace RezeptIO.API.Controllers
 {
