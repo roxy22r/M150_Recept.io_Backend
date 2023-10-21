@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RecipeRepositoriesMngoDb
 {
-    public class MngoRecipeRepository 
+    public class MngoRecipeRepository : IRecipeRepositoriesMngoDb
     {
         private readonly IMongoCollection<Recipe> recipes;
 

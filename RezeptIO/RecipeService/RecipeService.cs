@@ -21,7 +21,9 @@ namespace RecipeService
 
         public  (RecipeServiceResponse, Svc.Recipe) CreateRecipe(Svc.Recipe recipe)
         {
+
           var item= RecipeRepository.CreateRecipe(RecipeExtention.Recipe(recipe));
+            item.Id= Guid.NewGuid().ToString();
            return (RecipeServiceResponse.Success, RecipeExtention.Recipe(item));
         }
 

@@ -1,12 +1,12 @@
 ﻿using Rep = RecipeRepositories.Models;
 using Svc = RecipeService.Models;
-namespace RezeptIO.API
+namespace RecipeService
 {
     public static class IngredientsExtention
     {
         public static List<Svc.Ingredient> ToIngredient(List<Rep.Ingredient> ingredient)
         {
-            return ingredient.Select(ingredientItem => { return ToIngredient(ingredientItem); }).ToList();
+            return ingredient.Select(ingredientItem => { return ingredientItem.ToIngredient(); }).ToList();
 
         }
         public static Svc.Ingredient ToIngredient(this Rep.Ingredient ingredient)
@@ -20,7 +20,7 @@ namespace RezeptIO.API
 
         public static List<Rep.Ingredient> ToIngredient(List<Svc.Ingredient> ingredients)
         {
-            return ingredients.Select(ingredientItem => { return ToIngredient(ingredientItem); }).ToList();
+            return ingredients.Select(ingredientItem => { return ingredientItem.ToIngredient(); }).ToList();
 
 
         }
