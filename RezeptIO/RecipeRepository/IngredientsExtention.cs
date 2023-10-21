@@ -5,7 +5,7 @@ namespace RecipeRepositories
 {
     public static class IngredientsExtention
     {
-        public static List<Rep.Ingredient> ToIngredient(List<Mng.Ingredient> ingredient)
+        public static List<Rep.Ingredient> ToIngredient(this List<Mng.Ingredient> ingredient)
         {
             return ingredient.Select(ingredientItem => { return ingredientItem.ToIngredient(); }).ToList();
 
@@ -18,7 +18,7 @@ namespace RecipeRepositories
                 Quantity = ingredient.Quantity,
             };
         }
-        public static List<Mng.Ingredient> ToIngredient(List<Rep.Ingredient> ingredient)
+        public static List<Mng.Ingredient> ToIngredient(this List<Rep.Ingredient> ingredient)
         {
             return ingredient.Select(ingredientItem => { return ingredientItem.ToIngredient(); }).ToList();
 

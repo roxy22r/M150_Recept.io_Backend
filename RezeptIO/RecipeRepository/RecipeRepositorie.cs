@@ -23,8 +23,8 @@ namespace RecipeRepositories
 
         public Rep.Recipe CreateRecipe(Rep.Recipe recipe)
         {
-          var item=  RepositorieMngoDb.CreateRecipe(RecipeExtention.toRecipe(recipe));
-            return RecipeExtention.toRecipe(item.Result);
+          var item=  RepositorieMngoDb.CreateRecipe(RecipeExtention.ToRecipe(recipe));
+            return RecipeExtention.ToRecipe(item.Result);
 
         }
 
@@ -37,21 +37,21 @@ namespace RecipeRepositories
         public List<Rep.Recipe> GetAllRecipes()
         {
             var item =RepositorieMngoDb.GetAllRecipes();
-            return RecipeExtention.toRecipe(item.Result);
+            return RecipeExtention.ToRecipe(item.Result.ToList());
 
         }
 
         public Rep.Recipe GetRecipe(string id)
         {
             var item = RepositorieMngoDb.GetRecipe(id);
-            return RecipeExtention.toRecipe(item.Result);
+            return item.Result.ToRecipe();
 
         }
 
         public  Rep.Recipe UpdateRecipe(Rep.Recipe recipe)
         {
-          var item = RepositorieMngoDb.UpdateRecipe(RecipeExtention.toRecipe(recipe));
-            return RecipeExtention.toRecipe(item.Result);
+          var item = RepositorieMngoDb.UpdateRecipe(RecipeExtention.ToRecipe(recipe));
+            return item.Result.ToRecipe();
         }
     }
 }

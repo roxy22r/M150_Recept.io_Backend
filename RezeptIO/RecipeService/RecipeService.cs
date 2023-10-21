@@ -22,9 +22,9 @@ namespace RecipeService
         public  (RecipeServiceResponse, Svc.Recipe) CreateRecipe(Svc.Recipe recipe)
         {
 
-          var item= RecipeRepository.CreateRecipe(RecipeExtention.Recipe(recipe));
+          var item= RecipeRepository.CreateRecipe(recipe.ToRecipe());
             item.Id= Guid.NewGuid().ToString();
-           return (RecipeServiceResponse.Success, RecipeExtention.Recipe(item));
+           return (RecipeServiceResponse.Success,item.ToRecipe());
         }
 
         public Task<RecipeServiceResponse> DeleteRecipe(string id)
@@ -35,20 +35,20 @@ namespace RecipeService
 
         public (RecipeServiceResponse, List<Svc.Recipe>) GetAllRecipes()
         {
-           var item= RecipeExtention.Recipe(RecipeRepository.GetAllRecipes());
+           var item= RecipeExtention.ToRecipe(RecipeRepository.GetAllRecipes());
             return (RecipeServiceResponse.Success,item);
         }
 
         public (RecipeServiceResponse, Svc.Recipe) GetRecipe(string id)
         {
             var item = RecipeRepository.GetRecipe(id);
-            return (RecipeServiceResponse.Success,RecipeExtention.Recipe(item));
+            return (RecipeServiceResponse.Success,item.ToRecipe());
         }
 
         public (RecipeServiceResponse, Svc.Recipe) UpdateRecipe(Svc.Recipe recipe)
         {
-           var item = RecipeRepository.UpdateRecipe( RecipeExtention.Recipe(recipe));
-            return (RecipeServiceResponse.Success, RecipeExtention.Recipe(item));
+           var item = RecipeRepository.UpdateRecipe( recipe.ToRecipe());
+            return (RecipeServiceResponse.Success, item.ToRecipe());
             
         }
 

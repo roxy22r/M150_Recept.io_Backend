@@ -20,7 +20,7 @@ namespace RezeptIO.API.Controllers
         [HttpPost]
         public IActionResult CreateRecipe([FromBody] Recipe recipe)
         {
-            var (_, newRecipe) = RecipeService.CreateRecipe(recipe.toRecipe());
+            var (_, newRecipe) = RecipeService.CreateRecipe(recipe.ToRecipe());
             return Ok(newRecipe);
         }
 
@@ -56,7 +56,7 @@ namespace RezeptIO.API.Controllers
         public IActionResult GetRecipe([FromRoute(Name = "id")] string id)
         {
             Svc.Recipe recipe= RecipeService.GetRecipe(id).Item2;
-            return Ok(recipe.ToRecipe());
+            return base.Ok(Api.RecipeExtention.ToRecipe(recipe));
 
         }
 
@@ -64,7 +64,7 @@ namespace RezeptIO.API.Controllers
         [Route("/{id}")]
         public IActionResult UpdateRecipe([FromBody] Recipe res)
         {
-            var (_, newRecipe) = RecipeService.UpdateRecipe(res.toRecipe());
+            var (_, newRecipe) = RecipeService.UpdateRecipe(res.ToRecipe());
            return Ok(newRecipe);
         }
     }

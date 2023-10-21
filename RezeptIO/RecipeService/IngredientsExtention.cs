@@ -4,7 +4,7 @@ namespace RecipeService
 {
     public static class IngredientsExtention
     {
-        public static List<Svc.Ingredient> ToIngredient(List<Rep.Ingredient> ingredient)
+        public static List<Svc.Ingredient> ToIngredient(this List<Rep.Ingredient> ingredient)
         {
             return ingredient.Select(ingredientItem => { return ingredientItem.ToIngredient(); }).ToList();
 

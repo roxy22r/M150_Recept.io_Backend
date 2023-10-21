@@ -14,7 +14,7 @@ namespace RecipeService
     {
        
 
-        public static Svc.Recipe Recipe(this Rep.Recipe recipe)
+        public static Svc.Recipe ToRecipe(this Rep.Recipe recipe)
         {
             return new Svc.Recipe
             {
@@ -24,7 +24,7 @@ namespace RecipeService
             };
         }
 
-        public static Rep.Recipe Recipe(Svc.Recipe recipe)
+        public static Rep.Recipe ToRecipe(this Svc.Recipe recipe)
         {
             return new Rep.Recipe
             {
@@ -35,9 +35,9 @@ namespace RecipeService
         }
 
      
-        public static List<Svc.Recipe> Recipe(List<Rep.Recipe> recipes)
+        public static List<Svc.Recipe> ToRecipe(this List<Rep.Recipe> recipes)
         {
-            return  recipes.Select(item => { return RecipeExtention.Recipe(item); }).ToList();
+            return  recipes.Select(item => { return item.ToRecipe(); }).ToList();
         }
     }
 }

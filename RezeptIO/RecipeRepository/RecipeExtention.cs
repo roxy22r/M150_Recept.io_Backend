@@ -10,27 +10,28 @@ namespace RecipeRepositories
 {
     public static class RecipeExtention
     {
-        public static Rep.Recipe toRecipe (Mng.Recipe recipe) {
+        public static Rep.Recipe ToRecipe (this Mng.Recipe recipe) {
             return new Rep.Recipe() { 
                 Id = recipe.Id,
                 Title = recipe.Title,
-                Ingredients = IngredientsExtention.ToIngredient(recipe.Ingredients),
+                Ingredients = recipe.Ingredients.ToIngredient(),
             };
         }
 
-        public static Mng.Recipe toRecipe(Rep.Recipe recipe)
+        public static Mng.Recipe ToRecipe(this Rep.Recipe recipe)
         {
             return new Mng.Recipe()
             {
                 Id = recipe.Id,
                 Title = recipe.Title,
-                Ingredients = IngredientsExtention.ToIngredient(recipe.Ingredients),
+                Ingredients = recipe.Ingredients.ToIngredient(),
             };
         }
 
-        internal static List<Rep.Recipe> toRecipe(IEnumerable<Mng.Recipe> result)
+        public static List<Rep.Recipe> ToRecipe(this List<Mng.Recipe> recipes)
         {
-            throw new NotImplementedException();
+            return recipes.Select(item => item.ToRecipe()).ToList();
+            
         }
     }
 }
