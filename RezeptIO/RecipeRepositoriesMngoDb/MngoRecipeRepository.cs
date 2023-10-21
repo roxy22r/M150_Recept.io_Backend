@@ -1,7 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
-using RecipeRepositories;
-using RecipeRepositories.Models;
+using RecipeRepositoriesMngoDb.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RecipeRepositoriesMngoDb
 {
-    public class MngoRecipeRepository : IRecipeRepository
+    public class MngoRecipeRepository 
     {
         private readonly IMongoCollection<Recipe> recipes;
 

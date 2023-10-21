@@ -17,5 +17,20 @@ namespace RezeptIO.API
                 Quantity = ingredient.Quantity,
             };
         }
+
+        public static List<Rep.Ingredient> ToIngredient(List<Svc.Ingredient> ingredients)
+        {
+            return ingredients.Select(ingredientItem => { return ToIngredient(ingredientItem); }).ToList();
+
+
+        }
+        public static Rep.Ingredient ToIngredient(this Svc.Ingredient ingredient)
+        {
+            return new Rep.Ingredient
+            {
+                Name = ingredient.Name,
+                Quantity = ingredient.Quantity,
+            };
+        }
     }
 }

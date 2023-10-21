@@ -1,11 +1,13 @@
 ﻿using RecipeRepositories;
+using RecipeRepositories.Models;
 using RecipeService.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Svc =RecipeService.Models;
+using Rep = RecipeRepositories.Models;
 namespace RecipeService
 {
     public class RecipeService : IRecipeService
@@ -17,29 +19,37 @@ namespace RecipeService
 
         public IRecipeRepository RecipeRepository { get; set; }
 
-        public Task<(RecipeServiceResponse, Recipe)> CreateRecipe(Recipe recipe)
+        public  (RecipeServiceResponse, Svc.Recipe) CreateRecipe(Svc.Recipe recipe)
         {
-            throw new NotImplementedException();
+          var item= RecipeRepository.CreateRecipe(RecipeExtention.Recipe(recipe));
+           return (RecipeServiceResponse.Success, RecipeExtention.Recipe(item));
         }
 
         public Task<RecipeServiceResponse> DeleteRecipe(string id)
         {
-            throw new NotImplementedException();
+            var item= RecipeRepository.DeleteRecipe(id);
+            return new Task<RecipeServiceResponse>(() => RecipeServiceResponse.Success);
         }
 
-        public (RecipeServiceResponse, IEnumerable<Recipe>) GetAllRecipes()
+        public (RecipeServiceResponse, List<Svc.Recipe>) GetAllRecipes()
         {
-            throw new NotImplementedException();
+           var item= RecipeExtention.Recipe(RecipeRepository.GetAllRecipes());
+            return (RecipeServiceResponse.Success,item);
         }
 
-        public (RecipeServiceResponse, Recipe) GetRecipe(string id)
+        public (RecipeServiceResponse, Svc.Recipe) GetRecipe(string id)
         {
-            throw new NotImplementedException();
+            var item = RecipeRepository.GetRecipe(id);
+            return (RecipeServiceResponse.Success,RecipeExtention.Recipe(item));
         }
 
-        public Task<(RecipeServiceResponse, Recipe)> UpdateRecipe(Recipe recipe)
+        public (RecipeServiceResponse, Svc.Recipe) UpdateRecipe(Svc.Recipe recipe)
         {
-            throw new NotImplementedException();
+           var item = RecipeRepository.UpdateRecipe( RecipeExtention.Recipe(recipe));
+            return (RecipeServiceResponse.Success, RecipeExtention.Recipe(item));
+            
         }
+
+       
     }
 }

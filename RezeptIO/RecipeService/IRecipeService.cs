@@ -4,15 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Svc=RecipeService.Models;
 namespace RecipeService
 {
     public interface IRecipeService
     {
-        public (RecipeServiceResponse, Recipe) CreateRecipe(Recipe recipe);
-        public (RecipeServiceResponse, Recipe) UpdateRecipe(Recipe recipe);
+        public (RecipeServiceResponse, Svc.Recipe) CreateRecipe(Svc.Recipe recipe);
+        public (RecipeServiceResponse, Svc.Recipe) UpdateRecipe(Svc.Recipe recipe);
         public Task<RecipeServiceResponse> DeleteRecipe(string id);
-        public (RecipeServiceResponse, Recipe) GetRecipe(string id);
-        public (RecipeServiceResponse, IEnumerable<Recipe>) GetAllRecipes();
+        public (RecipeServiceResponse, Svc.Recipe) GetRecipe(string id);
+        public (RecipeServiceResponse, List<Svc.Recipe>) GetAllRecipes();
     }
 }

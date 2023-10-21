@@ -24,5 +24,21 @@ namespace RecipeService
                 Ingredients = IngredientsExtention.ToIngredient(recipe.Ingredients)
             };
         }
+
+        public static Rep.Recipe Recipe(Svc.Recipe recipe)
+        {
+            return new Rep.Recipe
+            {
+                Id = recipe.Id,
+                Title = recipe.Title,
+                Ingredients = IngredientsExtention.ToIngredient(recipe.Ingredients)
+            };
+        }
+
+     
+        public static List<Svc.Recipe> Recipe(List<Rep.Recipe> recipes)
+        {
+            return  recipes.Select(item => { return RecipeExtention.Recipe(item); }).ToList();
+        }
     }
 }
