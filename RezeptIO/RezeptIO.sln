@@ -10,8 +10,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeRepositories", "RecipeRepository\RecipeRepositories.csproj", "{E308BCDC-4D32-426F-8055-8D7B04CFF874}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeRepositoriesMngoDb", "RecipeRepositoriesMngoDb\RecipeRepositoriesMngoDb.csproj", "{ACAA8411-77D4-4DF0-B654-9299FFC854DC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E308BCDC-4D32-426F-8055-8D7B04CFF874} = {E308BCDC-4D32-426F-8055-8D7B04CFF874}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeTest", "RecipeTest\RecipeTest.csproj", "{63392314-F9E6-466C-B99E-59508AE303CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeTest", "RecipeTest\RecipeTest.csproj", "{63392314-F9E6-466C-B99E-59508AE303CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
