@@ -10,9 +10,10 @@ namespace RecipeRepositories
     public interface IRecipeRepository
     {
         public Recipe CreateRecipe(Recipe recipe);
-        public Recipe UpdateRecipe(Recipe recipe);
-        public bool DeleteRecipe(string id);
+        public Task<bool> DeleteRecipe(string id);
+        public IEnumerable<Recipe> GetAllRecipes();
         public Recipe GetRecipe(string id);
-        public List<Recipe> GetAllRecipes();
+        public Recipe UpdateRecipe(Recipe recipe);
     }
+    
 }

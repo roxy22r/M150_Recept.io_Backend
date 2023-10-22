@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using RecipeRepositories;
+using RepoModel = RecipeRepositories.Models;
 using RecipeRepositoriesMngoDb.Models;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace RecipeRepositoriesMngoDb
 {
-    public class MngoRecipeRepository:IRecipeRepository
+    public class MngoRecipeRepository: IRecipeRepository
     {
         private readonly IMongoCollection<Recipe> recipes;
 
@@ -19,40 +20,39 @@ namespace RecipeRepositoriesMngoDb
             recipes = mongoDatabase.GetCollection<Recipe>("recipe");
         }
 
-        public Task<Recipe> CreateRecipe(Recipe recipe)
-        {
-            recipes.InsertOne(recipe);
-            return GetRecipe(recipe.Id);
-        }
-
         public Task<bool> DeleteRecipe(string id)
         {
-            var result = recipes.DeleteOne(id);
-            return new Task<bool>(()=>result.IsAcknowledged);
+                var result = recipes.DeleteOne(id);
+                return new Task<bool>(() => result.IsAcknowledged);
         }
 
-        public  Task<IEnumerable<Recipe>> GetAllRecipes()
+        public RepoModel.Recipe CreateRecipe(RepoModel.Recipe recipe)
         {
-            var  all =  recipes.Find(Builders<Recipe>.Filter.Empty).ToListAsync();
-            return new Task<IEnumerable<Recipe>>(() => all.Result);
-
+            recipes.InsertOne(recipe.ToRecipe());
+            return recipe;
         }
 
-        public  Task<Recipe> GetRecipe(string id)
+        public IEnumerable<RepoModel.Recipe> GetAllRecipes()
         {
-            var item =recipes.FindAsync(item => item.Id.Equals(id)).Result.First();
-            return new Task<Recipe>(() => item);
-
-
+            var all = recipes.Find(Builders<Recipe>.Filter.Empty).ToList();
+            return all.Select(x => x.ToRecipe()).ToArray();
         }
 
-        public Task<Recipe> UpdateRecipe(Recipe recipe)
+        public RepoModel.Recipe GetRecipe(string id)
         {
-            var item = recipes.ReplaceOneAsync(GetIdFilter(recipe.Id), recipe);
-            return GetRecipe(recipe.Id);
+            var item = recipes.FindAsync(item => item.Id.Equals(id)).Result.First();
+            return item.ToRecipe();
         }
-        public FilterDefinition<Recipe>GetIdFilter(string id){
-          return Builders<Recipe> .Filter.Eq(item => item.Id,id);
+
+        public RepoModel.Recipe UpdateRecipe(RepoModel.Recipe recipe)
+        {
+            var item = recipes.ReplaceOneAsync(GetIdFilter(recipe.Id), recipe.ToRecipe());
+            return recipe;
+        }
+
+        private FilterDefinition<Recipe> GetIdFilter(string id)
+        {
+            return Builders<Recipe>.Filter.Eq(item => item.Id, id);
+        }
     }
-}
 }

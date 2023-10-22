@@ -41,7 +41,7 @@ namespace RecipeService
 
         public (RecipeServiceResponse, List<Svc.Recipe>) GetAllRecipes()
         {
-           var item= RecipeExtention.Recipe(RecipeRepository.GetAllRecipes());
+           var item = RecipeExtention.Recipe(RecipeRepository.GetAllRecipes().ToList());
             return (RecipeServiceResponse.Success,item);
         }
 
