@@ -21,16 +21,22 @@ namespace RecipeService
 
         public  (RecipeServiceResponse, Svc.Recipe) CreateRecipe(Svc.Recipe recipe)
         {
-
-          var item= RecipeRepository.CreateRecipe(recipe.ToRecipe());
-            item.Id= Guid.NewGuid().ToString();
-           return (RecipeServiceResponse.Success,item.ToRecipe());
+            var convertetRecipe =recipe.ToRecipe();
+            convertetRecipe.Id = Guid.NewGuid().ToString();
+            var newRecipe = RecipeRepository.CreateRecipe(convertetRecipe);
+           return (RecipeServiceResponse.Success,newRecipe.ToRecipe());
         }
 
         public Task<RecipeServiceResponse> DeleteRecipe(string id)
         {
-            var item= RecipeRepository.DeleteRecipe(id);
-            return new Task<RecipeServiceResponse>(() => RecipeServiceResponse.Success);
+            try
+            {
+                var item = RecipeRepository.DeleteRecipe(id);
+                return new Task<RecipeServiceResponse>(() => RecipeServiceResponse.Success);
+            }
+            catch(Exception ex) {
+                return new Task<RecipeServiceResponse>(()=>RecipeServiceResponse.Failure);
+            }
         }
 
         public (RecipeServiceResponse, List<Svc.Recipe>) GetAllRecipes()
