@@ -1,5 +1,6 @@
 using MongoDB.Driver;
 using RecipeRepositories;
+using RecipeRepositoriesMngoDb;
 using RecipeService;
 using RezeptIO.API.Configuration;
 
@@ -32,7 +33,7 @@ builder.Configuration.GetSection("Persistence").Bind(mongoDbSettings);
 
 if (mongoDbSettings.Type == "mongodb")
 {
-    builder.Services.AddSingleton<IRecipeRepository, MngoRecipeRepository>();
+    builder.Services.AddSingleton<IRecipeRepositoriesMngoDb, MngoRecipeRepository>();
     builder.Services.AddSingleton<IMongoDatabase>(x => new MongoClient(mongoDbSettings.Connectionstring).GetDatabase(mongoDbSettings.Databasename));
 }
 

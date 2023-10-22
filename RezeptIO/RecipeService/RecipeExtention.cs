@@ -35,7 +35,7 @@ namespace RecipeService
         }
 
      
-        public static List<Svc.Recipe> ToRecipe(this List<Rep.Recipe> recipes)
+        public static List<Svc.Recipe> Recipe(this List<Rep.Recipe> recipes)
         {
             return  recipes.Select(item => { return item.ToRecipe(); }).ToList();
         }
