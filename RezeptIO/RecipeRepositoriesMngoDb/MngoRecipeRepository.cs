@@ -28,8 +28,9 @@ namespace RecipeRepositoriesMngoDb
 
         public RepoModel.Recipe CreateRecipe(RepoModel.Recipe recipe)
         {
-            Task.FromResult(new Task(() => recipes.InsertOne(recipe.ToRecipe())));
-            return recipe;
+           var item= recipes.InsertOneAsync(recipe.ToRecipe());
+            
+            return recipe ;
         }
 
         public IEnumerable<RepoModel.Recipe> GetAllRecipes()

@@ -37,7 +37,7 @@ namespace RezeptIO.API.Controllers
         }
 
         [HttpDelete]
-        [Route("/{id}")]
+        [Route("{id}")]
         public IActionResult DeleteRecipe([FromRoute(Name = "id")] string id)
         {
             try
@@ -76,8 +76,7 @@ namespace RezeptIO.API.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("/{id}")]
+        [HttpGet("{id}")]
         public IActionResult GetRecipe([FromRoute(Name = "id")] string id)
         {
             try
@@ -85,7 +84,7 @@ namespace RezeptIO.API.Controllers
             
                 Svc.Recipe recipe = RecipeService.GetRecipe(id).Item2;
                 
-                return base.Ok(Api.RecipeExtention.ToRecipe(recipe));
+                return Ok(Api.RecipeExtention.ToRecipe(recipe));
            
             }
             catch {
@@ -94,9 +93,8 @@ namespace RezeptIO.API.Controllers
 
         }
 
-        [HttpPost]
-        [Route("/{recipe}")]
-        public IActionResult UpdateRecipe([FromBody] Api.Recipe recipe)
+        [HttpPost("{id}")]
+        public IActionResult UpdateRecipe([FromRoute(Name = "id")] String id, Api.Recipe recipe)
         {
             try
             {
